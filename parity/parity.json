@@ -23,7 +23,9 @@
       "onCourt": {
         "away": [],
         "home": []
-      }
+      },
+      "playerPoints": {},
+      "playerAssists": {}
     }
   },
   {
@@ -81,7 +83,9 @@
       "onCourt": {
         "away": [],
         "home": []
-      }
+      },
+      "playerPoints": {},
+      "playerAssists": {}
     }
   },
   {
@@ -139,7 +143,9 @@
       "onCourt": {
         "away": [],
         "home": []
-      }
+      },
+      "playerPoints": {},
+      "playerAssists": {}
     }
   },
   {
@@ -196,7 +202,9 @@
       "onCourt": {
         "away": [],
         "home": []
-      }
+      },
+      "playerPoints": {},
+      "playerAssists": {}
     }
   },
   {
@@ -245,7 +253,9 @@
       "onCourt": {
         "away": [],
         "home": []
-      }
+      },
+      "playerPoints": {},
+      "playerAssists": {}
     }
   },
   {
@@ -381,6 +391,12 @@
           "p2",
           "p3"
         ]
+      },
+      "playerPoints": {
+        "p1": 2
+      },
+      "playerAssists": {
+        "p2": 1
       }
     }
   }

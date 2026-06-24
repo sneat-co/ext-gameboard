@@ -50,6 +50,8 @@ export interface GameState {
   timeoutsUsed: Record<TeamSide, number>;
   possession: TeamSide | '';
   onCourt: Record<TeamSide, string[]>;
+  playerPoints: Record<string, number>;
+  playerAssists: Record<string, number>;
 }
 
 function validSide(s: unknown): s is TeamSide {
@@ -67,6 +69,8 @@ function newState(): GameState {
     timeoutsUsed: { home: 0, away: 0 },
     possession: '',
     onCourt: { home: [], away: [] },
+    playerPoints: {},
+    playerAssists: {},
   };
 }
 
@@ -123,7 +127,11 @@ function applyEvent(s: GameState, e: GameEvent): void {
       }
       break;
     case 'score':
-      if (validSide(e.side) && (e.points ?? 0) > 0) s.scores[e.side] += e.points as number;
+      if (validSide(e.side) && (e.points ?? 0) > 0) {
+        s.scores[e.side] += e.points as number;
+        if (e.scorerID) s.playerPoints[e.scorerID] = (s.playerPoints[e.scorerID] ?? 0) + (e.points as number);
+        if (e.assistID) s.playerAssists[e.assistID] = (s.playerAssists[e.assistID] ?? 0) + 1;
+      }
       break;
     case 'team-foul':
       if (validSide(e.side)) s.teamFouls[e.side]++;

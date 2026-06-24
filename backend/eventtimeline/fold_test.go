@@ -144,6 +144,25 @@ func TestFold_SubstitutionOnOff(t *testing.T) {
 	}
 }
 
+// Box score: scorer points and assister assists accrue per player (post-game-recap).
+func TestFold_BoxScore(t *testing.T) {
+	events := []Event{
+		{EventID: "a", Type: EventScore, WallClockMs: 1, Side: SideHome, Points: 2, ScorerID: "p1", AssistID: "p2"},
+		{EventID: "b", Type: EventScore, WallClockMs: 2, Side: SideHome, Points: 3, ScorerID: "p1"},
+		{EventID: "c", Type: EventScore, WallClockMs: 3, Side: SideAway, Points: 1}, // no scorer attributed
+	}
+	s := Fold(events)
+	if s.PlayerPoints["p1"] != 5 {
+		t.Fatalf("p1 points = %d, want 5", s.PlayerPoints["p1"])
+	}
+	if s.PlayerAssists["p2"] != 1 {
+		t.Fatalf("p2 assists = %d, want 1", s.PlayerAssists["p2"])
+	}
+	if len(s.PlayerPoints) != 1 { // the unattributed away point adds no player line
+		t.Fatalf("unexpected player points: %+v", s.PlayerPoints)
+	}
+}
+
 func TestInBonus(t *testing.T) {
 	s := newState()
 	s.TeamFouls[SideHome] = 5

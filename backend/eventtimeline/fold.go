@@ -14,15 +14,21 @@ type State struct {
 	TimeoutsUsed map[TeamSide]int `json:"timeoutsUsed"`
 	Possession   TeamSide         `json:"possession"`
 	OnCourt      map[TeamSide][]string `json:"onCourt"`
+
+	// Per-player box score (post-game-recap): points → assists, keyed by playerID.
+	PlayerPoints  map[string]int `json:"playerPoints"`
+	PlayerAssists map[string]int `json:"playerAssists"`
 }
 
 func newState() State {
 	return State{
-		Status:       StatusScheduled,
-		Scores:       map[TeamSide]int{SideHome: 0, SideAway: 0},
-		TeamFouls:    map[TeamSide]int{SideHome: 0, SideAway: 0},
-		TimeoutsUsed: map[TeamSide]int{SideHome: 0, SideAway: 0},
-		OnCourt:      map[TeamSide][]string{SideHome: {}, SideAway: {}},
+		Status:        StatusScheduled,
+		Scores:        map[TeamSide]int{SideHome: 0, SideAway: 0},
+		TeamFouls:     map[TeamSide]int{SideHome: 0, SideAway: 0},
+		TimeoutsUsed:  map[TeamSide]int{SideHome: 0, SideAway: 0},
+		OnCourt:       map[TeamSide][]string{SideHome: {}, SideAway: {}},
+		PlayerPoints:  map[string]int{},
+		PlayerAssists: map[string]int{},
 	}
 }
 
@@ -96,6 +102,12 @@ func applyEvent(s *State, e Event) {
 	case EventScore:
 		if e.Side.Valid() && e.Points > 0 {
 			s.Scores[e.Side] += e.Points
+			if e.ScorerID != "" {
+				s.PlayerPoints[e.ScorerID] += e.Points
+			}
+			if e.AssistID != "" {
+				s.PlayerAssists[e.AssistID]++
+			}
 		}
 	case EventTeamFoul:
 		if e.Side.Valid() {
