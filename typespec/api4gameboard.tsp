@@ -142,8 +142,66 @@ model GameState {
 }
 
 // ---------------------------------------------------------------------------
+// Game record
+// ---------------------------------------------------------------------------
+
+/**
+ * The game aggregate at `/ext/gameboard/games/{gameID}`. `scheduledMs` is the
+ * start instant (epoch ms); `location` is a free-text venue. `createdBy` is the
+ * authenticated organizer who created the game (the only user permitted to edit
+ * its settings until crew-based authorization lands).
+ */
+model Game {
+  gameID: string;
+  home: Side;
+  away: Side;
+  status: GameStatus;
+  scheduledMs?: int64;
+  location?: string;
+  createdBy?: string;
+  createdAt?: string;
+}
+
+/** Body for creating a game (organizer authenticated; returns the new Game). */
+model CreateGameRequest {
+  home: Side;
+  away: Side;
+  scheduledMs?: int64;
+}
+
+/**
+ * Body for editing a game's settings. Omitted fields are left unchanged. The
+ * write is restricted to the game's creator (organizer); others get 403.
+ */
+model UpdateGameRequest {
+  scheduledMs?: int64;
+  location?: string;
+}
+
+// ---------------------------------------------------------------------------
 // Operations
 // ---------------------------------------------------------------------------
+
+interface Games {
+  /** Create a game (authenticated organizer). Returns the new game record. */
+  @post
+  @route("/games")
+  create(@body body: CreateGameRequest): Game;
+
+  /** Read a single game record (public, no-login). */
+  @get
+  @route("/games/{gameID}")
+  get(@path gameID: string): Game;
+
+  /**
+   * Edit a game's schedule and/or venue. Authenticated; restricted to the
+   * game's creator (organizer) — others get 403. Exposed as PUT (the shared
+   * sneat API client has no PATCH); omitted fields are left unchanged.
+   */
+  @put
+  @route("/games/{gameID}")
+  update(@path gameID: string, @body body: UpdateGameRequest): Game;
+}
 
 interface Events {
   /** Append an event to a game's authoritative log (idempotent by eventID). */
