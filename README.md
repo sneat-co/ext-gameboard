@@ -1,4 +1,4 @@
-# gameboard-ext
+# ext-gameboard
 
 Public **contract surface** for the `gameboard` extension — the frozen, cross-repo boundary of
 the **GameBoard.live** basketball game-day vertical. It follows the
@@ -13,9 +13,9 @@ the TS contract tokens/types. It contains **no** gameboard implementation (that 
 ## Layout
 
 ```
-gameboard-ext/
+ext-gameboard/
 ├── typespec/   # api4gameboard.tsp — the frozen wire contract (source of truth)
-├── backend/    # Go module github.com/sneat-co/gameboard-ext/backend (hand-implemented to match the .tsp)
+├── backend/    # Go module github.com/sneat-co/ext-gameboard/backend (hand-implemented to match the .tsp)
 └── frontend/   # nx lib published as @sneat/extension-gameboard-contract (hand-implemented to match the .tsp)
 ```
 
@@ -30,8 +30,8 @@ master plan.)*
 
 ## The load-bearing invariant
 
-`gameboard-ext` depends **only on foundational/core code — never on another extension.** Because it
-has no edge back to any sibling, `sibling → gameboard-ext` can never form a dependency cycle. An
+`ext-gameboard` depends **only on foundational/core code — never on another extension.** Because it
+has no edge back to any sibling, `sibling → ext-gameboard` can never form a dependency cycle. An
 interface or type belongs here **only if its entire signature is expressible in gameboard-own +
 foundational/core types**. The CI check in `.github/workflows/ci.yml`
 (`scripts/check-no-extension-deps.sh`) enforces the invariant.

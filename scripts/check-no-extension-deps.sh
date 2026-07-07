@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Enforces the extension-contract-repo zero-other-extension-deps invariant:
-# gameboard-ext must depend only on foundational/core code, never another extension.
+# ext-gameboard must depend only on foundational/core code, never another extension.
 #
 # MVP mechanism (per the convention): language-native dependency-list assertions —
 # `go list` for the backend module and a package.json scan for the frontend lib.
@@ -15,7 +15,7 @@ if [ -f "${repo_root}/backend/go.mod" ]; then
   deps="$(go list -deps ./... 2>/dev/null || true)"
   bad="$(printf '%s\n' "$deps" \
     | grep -E '^github\.com/sneat-co/[a-z0-9-]+/backend' \
-    | grep -v '^github\.com/sneat-co/gameboard-ext/backend' || true)"
+    | grep -v '^github\.com/sneat-co/ext-gameboard/backend' || true)"
   if [ -n "$bad" ]; then
     echo "  FORBIDDEN backend dependency on another extension:"
     printf '    %s\n' $bad
@@ -46,7 +46,7 @@ else
 fi
 
 if [ "$violations" -ne 0 ]; then
-  echo "INVARIANT VIOLATED: gameboard-ext must not depend on another extension." >&2
+  echo "INVARIANT VIOLATED: ext-gameboard must not depend on another extension." >&2
   exit 1
 fi
 echo "zero-other-extension-deps invariant holds."

@@ -1,4 +1,4 @@
-// Package backend is the root of the gameboard-ext backend Go module.
+// Package backend is the root of the ext-gameboard backend Go module.
 //
 // This module holds the public contract surface of the gameboard extension —
 // the event-timeline model/const shapes, the inline team-side DTO, the

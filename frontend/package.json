@@ -1,7 +1,7 @@
 {
   "name": "@sneat/extension-gameboard-contract",
   "version": "0.1.0",
-  "description": "Published TS contract for the gameboard extension: wire types + the deterministic event-timeline fold reducer, hand-implemented to match ../typespec/api4gameboard.tsp and proven (parity.json) to agree with the Go reducer in gameboard-ext/backend/eventtimeline.",
+  "description": "Published TS contract for the gameboard extension: wire types + the deterministic event-timeline fold reducer, hand-implemented to match ../typespec/api4gameboard.tsp and proven (parity.json) to agree with the Go reducer in ext-gameboard/backend/eventtimeline.",
   "type": "module",
   "main": "src/index.ts",
   "scripts": {

@@ -1,5 +1,5 @@
 // Deterministic event-timeline reducer — the TS mirror of the Go reducer in
-// gameboard-ext/backend/eventtimeline/fold.go. Both are hand-implemented to
+// ext-gameboard/backend/eventtimeline/fold.go. Both are hand-implemented to
 // match ../typespec/api4gameboard.tsp and MUST fold the same log to identical
 // state; ../../parity/parity.json is the shared oracle that proves it.
 

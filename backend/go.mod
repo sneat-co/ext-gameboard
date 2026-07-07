@@ -1,3 +1,3 @@
-module github.com/sneat-co/gameboard-ext/backend
+module github.com/sneat-co/ext-gameboard/backend
 
 go 1.25.0
