@@ -1,0 +1,19 @@
+name: Publish contract
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Git ref (branch or tag) to publish from (default - the default branch)
+        required: false
+        default: ""
+
+jobs:
+  publish:
+    uses: sneat-co/cicd/.github/workflows/npm-publish.yml@main
+    with:
+      working-directory: frontend
+      ref: ${{ inputs.ref }}
+      install-command: pnpm install --frozen-lockfile --ignore-scripts
+      publish-command: pnpm publish --no-git-checks --access public
+    secrets: inherit
