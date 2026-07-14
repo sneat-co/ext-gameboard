@@ -10,6 +10,9 @@ on:
         required: false
         default: ""
 
+permissions:
+  contents: write
+
 jobs:
   publish:
     uses: sneat-co/cicd/.github/workflows/npm-publish.yml@main
@@ -18,5 +21,5 @@ jobs:
       ref: ${{ inputs.ref }}
       install-command: pnpm install --no-frozen-lockfile --ignore-scripts
       build-command: pnpm exec nx build ext-gameboard-contract
-      publish-command: pnpm exec nx release publish --projects=ext-gameboard-contract
+      publish-command: pnpm exec nx release --yes
     secrets: inherit
