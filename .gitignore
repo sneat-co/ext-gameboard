@@ -13,8 +13,7 @@
 # Node (frontend has its own .gitignore too)
 node_modules/
 dist/
-.nx/cache
-.nx/workspace-data
+.nx/
 
 # Firebase Hosting deploy cache
 .firebase/
