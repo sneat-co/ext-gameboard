@@ -3,15 +3,19 @@
   "version": "0.2.0",
   "description": "Published TS contract for the gameboard extension: wire types + the deterministic event-timeline fold reducer, hand-implemented to match ../typespec/api4gameboard.tsp and proven (parity.json) to agree with the Go reducer in ext-gameboard/backend/eventtimeline.",
   "type": "module",
-  "main": "src/index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
   "scripts": {
+    "build": "tsc -p tsconfig.build.json",
     "test": "node node_modules/vitest/vitest.mjs run",
     "typecheck": "node node_modules/typescript/bin/tsc --noEmit"
   },
   "devDependencies": {
     "typescript": "^5.6.0",
     "vitest": "^2.1.0",
-    "@types/node": "^22.0.0"
+    "@types/node": "^22.0.0",
+    "nx": "22.7.5"
   },
   "peerDependencies": {
     "@angular/core": "^21.0.0",

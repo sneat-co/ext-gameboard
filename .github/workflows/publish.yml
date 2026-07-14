@@ -16,6 +16,7 @@ jobs:
     with:
       working-directory: frontend
       ref: ${{ inputs.ref }}
-      install-command: pnpm install --frozen-lockfile --ignore-scripts
-      publish-command: pnpm publish --no-git-checks --access public
+      install-command: pnpm install --no-frozen-lockfile --ignore-scripts
+      build-command: pnpm exec nx build ext-gameboard-contract
+      publish-command: pnpm exec nx release publish --projects=ext-gameboard-contract
     secrets: inherit

@@ -1,0 +1,7 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "release": {
+    "projects": ["ext-gameboard-contract"],
+    "projectsRelationship": "independent"
+  }
+}
