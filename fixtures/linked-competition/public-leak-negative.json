@@ -1,0 +1,16 @@
+{
+  "forbiddenKeys": [
+    "accessToken",
+    "bearerToken",
+    "authorization",
+    "callback",
+    "rawBody",
+    "commandID",
+    "signingKey",
+    "signature",
+    "lease",
+    "outbox",
+    "callerSubject",
+    "privateSubject"
+  ]
+}
