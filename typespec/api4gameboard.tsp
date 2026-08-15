@@ -162,6 +162,44 @@ model Game {
   createdAt?: string;
 }
 
+// ---------------------------------------------------------------------------
+// Viewer-safe external competition linkage
+// ---------------------------------------------------------------------------
+
+/**
+ * The public, stable identity of the competition contest that supplied this
+ * game. This is an association for cross-links and does not grant control of
+ * either product.
+ *
+ * The provider keeps its transport credentials, callback commands, signing
+ * material and private subjects behind its own ingress. Those fields are
+ * deliberately not part of this viewer-safe contract.
+ */
+model LinkedCompetition {
+  providerID: string;
+  competitionID: string;
+  contestID: string;
+  contestURL?: string;
+}
+
+/**
+ * A viewer-safe summary of result submission. It describes only the visible
+ * state and optional permanent result link; it never exposes a command,
+ * acknowledgement body, retry lease or outbox record.
+ */
+enum SubmissionSyncStatus {
+  `awaiting-final`,
+  `ready-to-submit`,
+  submitting,
+  synced,
+  `requires-adjudication`,
+}
+
+model SubmissionSync {
+  status: SubmissionSyncStatus;
+  resultURL?: string;
+}
+
 /** Body for creating a game (organizer authenticated; returns the new Game). */
 model CreateGameRequest {
   home: Side;

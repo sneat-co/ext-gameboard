@@ -43,3 +43,12 @@ and the [`gameboard-live` master plan](https://github.com/sneat-co/backstage/blo
 The foundation contract here is the **event-timeline** record (append-only, idempotent by
 client-generated `eventID`, ordered by server wall-clock with ties broken by `eventID`, deterministic
 fold).
+
+## Linked competition boundary
+
+`LinkedCompetition` and `SubmissionSync` are viewer-safe cross-link
+projections for a GameBoard.live game tied to an external contest. The Go
+binding also exposes `ExternalControlAuthorizer`, a backend-only port for the
+external owner to resolve a current scorer. Neither public DTO includes bearer
+tokens, callbacks, command bodies, signing material, leases/outbox state, or
+private subjects; those remain inside the owning service ingress.

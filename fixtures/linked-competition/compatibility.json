@@ -1,0 +1,13 @@
+{
+  "legacyProjection": {},
+  "linkedCompetition": {
+    "providerID": "competios",
+    "competitionID": "summer-cup",
+    "contestID": "semifinal-1",
+    "contestURL": "https://competios.example/contests/semifinal-1",
+    "futureViewerSafeField": "older consumers ignore additive fields"
+  },
+  "submissionSync": {
+    "status": "ready-to-submit"
+  }
+}
